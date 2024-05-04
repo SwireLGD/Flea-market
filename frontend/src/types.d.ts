@@ -38,3 +38,29 @@ export interface ValidationError {
 export interface GlobalError {
     error: string;
 }
+
+export interface Item {
+    _id: string;
+    image: string | null;
+    title: string;
+    price: number;
+}
+
+export interface ItemDetails {
+    _id: string; 
+    title: string;
+    description: string;
+    price: number;
+    image: string | null;
+    category: string;
+    seller: string
+}
+
+export interface ItemMutation {
+    title: string;
+    description: string;
+    price: number;
+    image: string | null;
+    category: string;
+    seller: string
+}
