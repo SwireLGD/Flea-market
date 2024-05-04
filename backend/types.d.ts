@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 export interface UserFields {
     username: string;
     password: string;
@@ -18,4 +20,5 @@ export interface ItemMutation {
     description: string;
     image: string | null;
     category: string;
+    seller: Types.ObjectId;
 }

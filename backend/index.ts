@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import config from './config';
+import itemsRouter from './routers/items';
+import categoriesRouter from './routers/categories';
+import usersRouter from './routers/users';
 
 
 const app = express();
@@ -12,7 +15,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
-app.use('')
+app.use('/items', itemsRouter);
+app.use('/categories', categoriesRouter);
+app.use('/users', usersRouter);
 
 const run = async () => {
   await mongoose.connect(config.mongoose.db);

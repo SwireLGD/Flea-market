@@ -3,6 +3,7 @@ import Item from '../models/Item';
 import mongoose, { Types } from 'mongoose';
 import auth, { RequestWithUser } from '../middleware/auth';
 import { ItemMutation } from '../types';
+import { imagesUpload } from '../multer';
 
 const itemsRouter = express.Router();
 
@@ -37,13 +38,18 @@ itemsRouter.get('/:id', async (req, res, next) => {
     }
 });
 
-itemsRouter.post('/', auth, async (req, res, next) => {
+itemsRouter.post('/', auth, imagesUpload.single('image'), async (req: RequestWithUser, res, next) => {
+    if (!req.user) {
+        return res.status(401).send({ error: 'Authentication is required' });
+    }
+
     try {
         const itemData: ItemMutation = {
             title: req.body.title,
             description: req.body.description,
             image: req.file ? req.file.filename : null,
-            category: req.body.category
+            category: req.body.category,
+            seller: req.user._id
         }
         const item = new Item(itemData);
         await item.save();
@@ -59,8 +65,11 @@ itemsRouter.post('/', auth, async (req, res, next) => {
 });
 
 itemsRouter.delete('/:id', auth, async (req: RequestWithUser, res, next) => {
+    if (!req.user) {
+        return res.status(401).send({ error: 'Authentication is required' });
+    }
     try {
-        const result = await Item.deleteOne({ _id: req.params.id, seller: req.user!._id });
+        const result = await Item.deleteOne({ _id: req.params.id, seller: req.user._id });
         if (result.deletedCount === 0) {
             return res.status(404).send({ error: 'Item not found or unauthorized to delete the item' });
         }
@@ -69,3 +78,5 @@ itemsRouter.delete('/:id', auth, async (req: RequestWithUser, res, next) => {
         return next(e);
     }
 });
+
+export default itemsRouter;
