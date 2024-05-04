@@ -30,12 +30,26 @@ const ItemForm: React.FC<Props> = ({onSubmit}) => {
 
     const submitFormHandler = (e: React.FormEvent) => {
         e.preventDefault();
+        const priceValid = parseFloat(state.price) > 0;
+        if (!priceValid) {
+            alert("Please enter a valid price greater than zero.");
+        return;
+    }
         onSubmit(state);
     };
 
     const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
         const value = e.target.value;
+
+        if (name === 'price') {
+            const numericValue = parseFloat(value);
+            if (numericValue <= 0) {
+                alert("Price must be greater than zero.");
+                return; 
+            }
+        }
+
         setState(prevState => {
             return {...prevState, [name]: value};
         });
@@ -83,6 +97,7 @@ const ItemForm: React.FC<Props> = ({onSubmit}) => {
                     value={state.title}
                     onChange={inputChangeHandler}
                     name="title"
+                    required
                 />
                 </Grid>
 
@@ -92,6 +107,7 @@ const ItemForm: React.FC<Props> = ({onSubmit}) => {
                     value={state.price}
                     onChange={inputChangeHandler}
                     name="price"
+                    required
                 />
                 </Grid>
 
@@ -102,6 +118,7 @@ const ItemForm: React.FC<Props> = ({onSubmit}) => {
                     value={state.description}
                     onChange={inputChangeHandler}
                     name="description"
+                    required
                 />
                 </Grid>
 
