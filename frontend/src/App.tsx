@@ -7,6 +7,7 @@ import NewItem from "./features/items/NewItem";
 import Items from "./features/items/Items";
 import ItemDetailsPage from "./features/items/itemDetails";
 import CategoriesList from "./features/categories/Categories";
+import CategoryItems from "./features/items/ItemByCategory";
 
 const app = () => {
   return (
@@ -26,6 +27,7 @@ const app = () => {
               <Route path="/add_item" element={<NewItem />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/categories/:categoryId" element={<CategoryItems />} />
               <Route path="*" element={<Typography variant="h2">Not found!</Typography>} />
             </Routes>
           </Container>

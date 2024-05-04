@@ -97,3 +97,15 @@ export const deleteItem = createAsyncThunk<void, string, {state: RootState}>(
         }
     }
 );
+
+export const fetchItemsByCategory = createAsyncThunk<Item[], string>(
+    'items/fetchByCategory',
+    async (categoryId, { rejectWithValue }) => {
+        try {
+            const response = await axiosApi.get(`/categories/${categoryId}/items`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Item, ItemDetails } from "../../types";
-import { createItem, deleteItem, fetchItemDetails, fetchItems } from "./itemsThunks";
+import { createItem, deleteItem, fetchItemDetails, fetchItems, fetchItemsByCategory } from "./itemsThunks";
 import { RootState } from "../../app/store";
 
 interface ItemsState {
@@ -62,6 +62,16 @@ export const itemsSlice = createSlice({
         });
         builder.addCase(deleteItem.rejected, (state) => {
             state.deleting = false;
+        });
+        builder.addCase(fetchItemsByCategory.pending, (state) => {
+            state.fetchLoading = true;
+        });
+        builder.addCase(fetchItemsByCategory.fulfilled, (state, {payload: items}) => {
+            state.fetchLoading = false;
+            state.items = items;
+        });
+        builder.addCase(fetchItemsByCategory.rejected, (state) => {
+            state.fetchLoading = false;
         });
     },
 });
