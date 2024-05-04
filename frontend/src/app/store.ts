@@ -1,6 +1,7 @@
 import storage from "redux-persist/lib/storage";
 import {persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, persistStore} from 'redux-persist';
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import { usersReducer } from "../features/users/usersSlice";
 
 
 const userPersistConfig = {
@@ -10,7 +11,7 @@ const userPersistConfig = {
 }
 
 const rootReducer = combineReducers({
-
+  users: persistReducer(userPersistConfig, usersReducer),
 });
 
 export const store = configureStore({
