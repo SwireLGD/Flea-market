@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { selectItems } from "./itemsSlice";
 import { fetchItems } from "./itemsThunks";
-import { Button, Grid, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Grid, Typography } from "@mui/material";
+
 import ItemsItem from "./components/ItemsItem";
 
 const Items = () => {
@@ -36,3 +36,5 @@ const Items = () => {
         </Grid>
     );
 };
+
+export default Items;

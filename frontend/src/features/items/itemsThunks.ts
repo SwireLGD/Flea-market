@@ -61,3 +61,39 @@ export const createItem = createAsyncThunk<void, ItemMutation, {state: RootState
         return axiosApi.post('/items', formData, {headers: {Authorization: `Bearer ${token}`} });
     }
 );
+
+export const deleteItem = createAsyncThunk<void, string, {state: RootState}>(
+    'items/deleteItem',
+    async (itemId, { getState, rejectWithValue }) => {
+        const token = getState().users.user?.token;
+
+        if (!token) {
+            return rejectWithValue('Authentication required');
+        }
+
+        try {
+            const response = await axiosApi.delete(`/items/${itemId}`, {
+                headers: {Authorization: `Bearer ${token}` }
+            });
+
+            if (response.status !== 204) {
+                return rejectWithValue('Failed to delete the item');
+            }
+
+            return;
+        } catch (e) {
+            if (axios.isAxiosError(e)) {
+                if (e.response) {
+                    if (e.response.status === 403) {
+                        return rejectWithValue('Unauthorized to delete the item');
+                    } else if (e.response.status === 404) {
+                        return rejectWithValue('Item not found');
+                    } else {
+                        return rejectWithValue(e.response.data.message || 'server error during deletion');
+                    }
+                }
+            }
+            return rejectWithValue('Network error or unable to reach server');
+        }
+    }
+);
