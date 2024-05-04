@@ -35,11 +35,7 @@ const ItemDetailsPage: React.FC = () => {
         }
     };
 
-    let cardImage = imageNotAvailable;
-
-    if (image) {
-        cardImage = apiURL + '/' + image;
-    }
+    let cardImage = itemDetails && itemDetails.image ? `${apiURL}/${itemDetails.image}` : imageNotAvailable;
 
     if (isLoading) {
         return (
@@ -60,6 +56,12 @@ const ItemDetailsPage: React.FC = () => {
                     <ImageCardMedia image={cardImage} />
                     <Typography variant="body1" color="textPrimary" component="p">
                         Price: {itemDetails.price}
+                    </Typography>
+                    <Typography variant="body1" color="textPrimary" component="p">
+                        {user?.displayName}
+                    </Typography>
+                    <Typography variant="body1" color="textPrimary" component="p">
+                        Телефон: {user?.phoneNumber}
                     </Typography>
                     {user && (
                         <CardActions>
