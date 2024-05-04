@@ -54,11 +54,7 @@ export const createItem = createAsyncThunk<void, ItemMutation, {state: RootState
             const value = itemMutation[key];
 
             if (value !== null) {
-                if (typeof value === 'number') {
-                    formData.append(key, value.toString());
-                } else {
-                    formData.append(key, value);
-                }
+                formData.append(key, value);
             }
         });
 

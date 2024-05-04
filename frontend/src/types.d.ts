@@ -59,8 +59,13 @@ export interface ItemDetails {
 export interface ItemMutation {
     title: string;
     description: string;
-    price: number;
+    price: string;
     image: string | null;
     category: string;
     seller: string
+}
+
+export interface Category {
+    _id: string;
+    title: string;
 }

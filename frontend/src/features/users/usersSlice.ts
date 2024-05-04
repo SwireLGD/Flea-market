@@ -17,7 +17,7 @@ const initialState: UsersState = {
     registerError: null,
     loginLoading: false,
     loginError: null,
-}
+};
 
 export const usersSlice = createSlice({
     name: 'users',
@@ -53,7 +53,7 @@ export const usersSlice = createSlice({
             state.loginLoading = false;
             state.loginError = error || null;
         });
-    }
+    },
 });
 
 export const {unsetUser} = usersSlice.actions;

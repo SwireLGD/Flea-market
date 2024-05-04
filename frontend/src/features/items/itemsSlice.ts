@@ -8,7 +8,7 @@ interface ItemsState {
     currentItem: ItemDetails | null;
     fetchLoading: boolean;
     createLoading: boolean;
-};
+}
 
 const initialState: ItemsState = {
     items: [],
@@ -51,7 +51,7 @@ export const itemsSlice = createSlice({
         builder.addCase(createItem.rejected, (state) => {
             state.createLoading = false;
         });
-    }
+    },
 });
 
 export const itemsReducer = itemsSlice.reducer;
