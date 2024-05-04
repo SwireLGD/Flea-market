@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {Button, Menu, MenuItem} from "@mui/material";
 import { useAppDispatch } from '../../app/hooks';
 import { User } from '../../types';
-import { logout } from '../../features/users/usersThunks';
 import { Link } from 'react-router-dom';
+import { logout } from '../../features/users/usersThunk';
 
 interface Props {
     user: User;

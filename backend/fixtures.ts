@@ -45,13 +45,13 @@ const run = async () => {
 
     const [item1, item2, item3, item4] = await Item.create(
         {title: 'Worn out coat', description: 'A coat thats been through a lot...', price: '200', category: category1._id, 
-        image: 'public/fixtures/item1.jpg', seller: user1._id},
+        image: 'fixtures/item1.jpg', seller: user1._id},
         {title: 'History of Rome', description: 'History book', price: '100', category: category2._id, 
-        image: 'public/fixtures/item2.jpg', seller: user1._id},
+        image: 'fixtures/item2.jpg', seller: user1._id},
         {title: 'Autoportrait', description: 'An autoportrait of some dude', price: '50', category: category3._id, 
-        image: 'public/fixtures/item3.jpg', seller: user2._id},
+        image: 'fixtures/item3.jpg', seller: user2._id},
         {title: 'Culinary book', description: 'Book with french cusine', price: '100', category: category2._id, 
-        image: 'public/fixtures/item4.jpg', seller: user2._id},
+        image: 'fixtures/item4.jpg', seller: user2._id},
     );
 
     await db.close();

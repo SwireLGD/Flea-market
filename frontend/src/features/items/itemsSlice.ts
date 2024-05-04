@@ -38,7 +38,7 @@ export const itemsSlice = createSlice({
             state.fetchLoading = true;
         });
         builder.addCase(fetchItemDetails.fulfilled, (state, {payload: currentItem}) => {
-            state.fetchLoading = true;
+            state.fetchLoading = false;
             state.currentItem = currentItem;
         });
         builder.addCase(fetchItemDetails.rejected, (state) => {

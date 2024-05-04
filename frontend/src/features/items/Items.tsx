@@ -1,18 +1,27 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { selectItems } from "./itemsSlice";
+import { selectFetchLoading, selectItems } from "./itemsSlice";
 import { fetchItems } from "./itemsThunks";
-import { Grid, Typography } from "@mui/material";
+import { CircularProgress, Grid, Typography } from "@mui/material";
 
 import ItemsItem from "./components/ItemsItem";
 
 const Items = () => {
     const dispatch = useAppDispatch();
     const items = useAppSelector(selectItems);
+    const isLoading = useAppSelector(selectFetchLoading);
 
     useEffect(() => {
         dispatch(fetchItems());
     }, [dispatch]);
+
+    if (isLoading) {
+        return (
+            <Grid container justifyContent="center" alignItems="center" style={{ height: "100vh" }}>
+                <CircularProgress />
+            </Grid>
+        );
+    }
 
     return (
         <Grid container direction="column" gap={2}>
