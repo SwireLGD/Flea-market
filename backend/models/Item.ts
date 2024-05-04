@@ -1,4 +1,6 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
+import Category from "./Category";
+import User from "./User";
 
 const Schema = mongoose.Schema;
 
@@ -19,7 +21,14 @@ const ItemSchema = new Schema({
     category: {
         type: Schema.Types.ObjectId,
         ref: 'Category',
-        required: true
+        required: true,
+        validate: {
+            validator: async (id: Types.ObjectId) => {
+              const category = await Category.findById(id);
+              return Boolean(category);
+            },
+            message: 'Category does not exist!',
+        },
     },
     image: {
         type: String || null
@@ -27,7 +36,14 @@ const ItemSchema = new Schema({
     seller: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: true,
+        validate: {
+            validator: async (id: Types.ObjectId) => {
+              const user = await User.findById(id);
+              return Boolean(user);
+            },
+            message: 'User does not exist!',
+        },
     }
 },
 {

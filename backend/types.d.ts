@@ -12,3 +12,10 @@ interface UserMethods {
 }
   
 export type UserModel = Model<UserFields, unknown, UserMethods>;
+
+export interface ItemMutation {
+    title: string;
+    description: string;
+    image: string | null;
+    category: string;
+}
